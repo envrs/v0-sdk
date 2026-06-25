@@ -1,0 +1,220 @@
+name: Deploy Examples to Vercel
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      deployTarget:
+        description: 'Deploy target (all, simple-v0, v0-clone, classic-v0, v0-sdk-react-example, ai-tools-example)'
+        required: false
+        default: 'all'
+
+concurrency:
+  group: vercel-deploy-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  detect-changes:
+    name: Detect Changed Examples
+    runs-on: ubuntu-latest
+    outputs:
+      simple-v0: ${{ steps.changes.outputs.simple-v0 }}
+      v0-clone: ${{ steps.changes.outputs.v0-clone }}
+      classic-v0: ${{ steps.changes.outputs.classic-v0 }}
+      v0-sdk-react-example: ${{ steps.changes.outputs.v0-sdk-react-example }}
+      ai-tools-example: ${{ steps.changes.outputs.ai-tools-example }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check for changes
+        id: changes
+        run: |
+          # If manual dispatch with specific target, deploy that
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.event.inputs.deployTarget }}" != "all" ]; then
+            echo "simple-v0=$([[ "${{ github.event.inputs.deployTarget }}" == "simple-v0" || "${{ github.event.inputs.deployTarget }}" == "all" ]] && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+            echo "v0-clone=$([[ "${{ github.event.inputs.deployTarget }}" == "v0-clone" || "${{ github.event.inputs.deployTarget }}" == "all" ]] && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+            echo "classic-v0=$([[ "${{ github.event.inputs.deployTarget }}" == "classic-v0" || "${{ github.event.inputs.deployTarget }}" == "all" ]] && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+            echo "v0-sdk-react-example=$([[ "${{ github.event.inputs.deployTarget }}" == "v0-sdk-react-example" || "${{ github.event.inputs.deployTarget }}" == "all" ]] && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+            echo "ai-tools-example=$([[ "${{ github.event.inputs.deployTarget }}" == "ai-tools-example" || "${{ github.event.inputs.deployTarget }}" == "all" ]] && echo "true" || echo "false")" >> $GITHUB_OUTPUT
+          else
+            # Check actual file changes
+            if git diff --name-only ${{ github.event.before }}..HEAD | grep -qE '^examples/simple-v0|^packages/'; then
+              echo "simple-v0=true" >> $GITHUB_OUTPUT
+            else
+              echo "simple-v0=false" >> $GITHUB_OUTPUT
+            fi
+
+            if git diff --name-only ${{ github.event.before }}..HEAD | grep -qE '^examples/v0-clone|^packages/'; then
+              echo "v0-clone=true" >> $GITHUB_OUTPUT
+            else
+              echo "v0-clone=false" >> $GITHUB_OUTPUT
+            fi
+
+            if git diff --name-only ${{ github.event.before }}..HEAD | grep -qE '^examples/classic-v0|^packages/'; then
+              echo "classic-v0=true" >> $GITHUB_OUTPUT
+            else
+              echo "classic-v0=false" >> $GITHUB_OUTPUT
+            fi
+
+            if git diff --name-only ${{ github.event.before }}..HEAD | grep -qE '^examples/v0-sdk-react-example|^packages/'; then
+              echo "v0-sdk-react-example=true" >> $GITHUB_OUTPUT
+            else
+              echo "v0-sdk-react-example=false" >> $GITHUB_OUTPUT
+            fi
+
+            if git diff --name-only ${{ github.event.before }}..HEAD | grep -qE '^examples/ai-tools-example|^packages/'; then
+              echo "ai-tools-example=true" >> $GITHUB_OUTPUT
+            else
+              echo "ai-tools-example=false" >> $GITHUB_OUTPUT
+            fi
+          fi
+
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9.15.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check
+        run: pnpm type-check
+
+      - name: Build packages
+        run: pnpm build:packages
+
+  deploy-simple-v0:
+    name: Deploy simple-v0
+    needs: [detect-changes, build]
+    if: needs.detect-changes.outputs.simple-v0 == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        uses: vercel/action@main
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_SIMPLE_V0 }}
+          working-directory: examples/simple-v0
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+
+      - name: Post deployment summary
+        run: |
+          echo "✅ Deployed simple-v0 to Vercel"
+          echo "Project ID: ${{ secrets.VERCEL_PROJECT_ID_SIMPLE_V0 }}"
+
+  deploy-v0-clone:
+    name: Deploy v0-clone
+    needs: [detect-changes, build]
+    if: needs.detect-changes.outputs.v0-clone == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        uses: vercel/action@main
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_V0_CLONE }}
+          working-directory: examples/v0-clone
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+
+      - name: Post deployment summary
+        run: |
+          echo "✅ Deployed v0-clone to Vercel"
+          echo "Project ID: ${{ secrets.VERCEL_PROJECT_ID_V0_CLONE }}"
+
+  deploy-classic-v0:
+    name: Deploy classic-v0
+    needs: [detect-changes, build]
+    if: needs.detect-changes.outputs.classic-v0 == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        uses: vercel/action@main
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_CLASSIC_V0 }}
+          working-directory: examples/classic-v0
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+
+      - name: Post deployment summary
+        run: |
+          echo "✅ Deployed classic-v0 to Vercel"
+          echo "Project ID: ${{ secrets.VERCEL_PROJECT_ID_CLASSIC_V0 }}"
+
+  deploy-v0-sdk-react-example:
+    name: Deploy v0-sdk-react-example
+    needs: [detect-changes, build]
+    if: needs.detect-changes.outputs.v0-sdk-react-example == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        uses: vercel/action@main
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_V0_SDK_REACT }}
+          working-directory: examples/v0-sdk-react-example
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+
+      - name: Post deployment summary
+        run: |
+          echo "✅ Deployed v0-sdk-react-example to Vercel"
+          echo "Project ID: ${{ secrets.VERCEL_PROJECT_ID_V0_SDK_REACT }}"
+
+  deploy-ai-tools-example:
+    name: Deploy ai-tools-example
+    needs: [detect-changes, build]
+    if: needs.detect-changes.outputs.ai-tools-example == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy to Vercel
+        uses: vercel/action@main
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID_AI_TOOLS }}
+          working-directory: examples/ai-tools-example
+          scope: ${{ secrets.VERCEL_ORG_ID }}
+
+      - name: Post deployment summary
+        run: |
+          echo "✅ Deployed ai-tools-example to Vercel"
+          echo "Project ID: ${{ secrets.VERCEL_PROJECT_ID_AI_TOOLS }}"
+
+  deployment-complete:
+    name: Deployment Complete
+    runs-on: ubuntu-latest
+    needs: [deploy-simple-v0, deploy-v0-clone, deploy-classic-v0, deploy-v0-sdk-react-example, deploy-ai-tools-example]
+    if: always()
+    steps:
+      - name: Deployment Status
+        run: |
+          echo "🎉 Deployment workflow complete"
+          echo "Check Vercel dashboard for deployment status:"
+          echo "https://vercel.com/dashboard"
