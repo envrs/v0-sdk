@@ -11,9 +11,7 @@
     "DATABASE_URL",
     "DATABASE_URL_UNPOOLED"
   ],
-  "regions": [
-    "sfo1"
-  ],
+  "regions": ["sfo1"],
   "functions": {
     "api/**/*.ts": {
       "maxDuration": 60,

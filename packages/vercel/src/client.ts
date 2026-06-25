@@ -54,7 +54,7 @@ export class VercelClient {
     }
 
     const headers: Record<string, string> = {
-      'Authorization': `Bearer ${this.apiToken}`,
+      Authorization: `Bearer ${this.apiToken}`,
       'Content-Type': 'application/json',
     }
 
@@ -66,7 +66,9 @@ export class VercelClient {
 
     if (!response.ok) {
       const error = await response.json().catch(() => ({}))
-      throw new Error(`Vercel API error: ${response.status} - ${JSON.stringify(error)}`)
+      throw new Error(
+        `Vercel API error: ${response.status} - ${JSON.stringify(error)}`,
+      )
     }
 
     return response.json()
@@ -172,14 +174,14 @@ export class VercelClient {
   ): Promise<{ logs: string[] }> {
     const logs: string[] = []
     const response = await fetch(
-      `${this.baseURL}/v2/deployments/${deploymentId}/logs?${
-        new URLSearchParams({
+      `${this.baseURL}/v2/deployments/${deploymentId}/logs?${new URLSearchParams(
+        {
           ...(options?.lines && { lines: String(options.lines) }),
-        }).toString()
-      }`,
+        },
+      ).toString()}`,
       {
         headers: {
-          'Authorization': `Bearer ${this.apiToken}`,
+          Authorization: `Bearer ${this.apiToken}`,
         },
       },
     )
@@ -269,8 +271,14 @@ export class VercelClient {
   /**
    * Delete an environment variable
    */
-  async deleteEnv(projectIdOrName: string, envId: string): Promise<{ deleted: boolean }> {
-    return this.request('DELETE', `/v9/projects/${projectIdOrName}/env/${envId}`)
+  async deleteEnv(
+    projectIdOrName: string,
+    envId: string,
+  ): Promise<{ deleted: boolean }> {
+    return this.request(
+      'DELETE',
+      `/v9/projects/${projectIdOrName}/env/${envId}`,
+    )
   }
 
   // ===== Domains =====
@@ -290,7 +298,10 @@ export class VercelClient {
   /**
    * Create a domain for a project
    */
-  async createDomain(domain: string, projectIdOrName: string): Promise<VercelDomain> {
+  async createDomain(
+    domain: string,
+    projectIdOrName: string,
+  ): Promise<VercelDomain> {
     return this.request('POST', `/v10/projects/${projectIdOrName}/domains`, {
       body: { domain },
     })
@@ -376,7 +387,10 @@ export class VercelClient {
 /**
  * Factory function to create a Vercel client
  */
-export function createVercelClient(apiToken: string, teamId?: string): VercelClient {
+export function createVercelClient(
+  apiToken: string,
+  teamId?: string,
+): VercelClient {
   return new VercelClient({
     apiToken,
     teamId,

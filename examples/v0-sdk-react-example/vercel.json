@@ -2,13 +2,8 @@
   "buildCommand": "cd ../.. && pnpm build --filter=v0-sdk-react-example",
   "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
   "outputDirectory": ".next",
-  "env": [
-    "V0_API_KEY",
-    "NEXT_PUBLIC_APP_URL"
-  ],
-  "regions": [
-    "sfo1"
-  ],
+  "env": ["V0_API_KEY", "NEXT_PUBLIC_APP_URL"],
+  "regions": ["sfo1"],
   "functions": {
     "api/**/*.ts": {
       "maxDuration": 30,

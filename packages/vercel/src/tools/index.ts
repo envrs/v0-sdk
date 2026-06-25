@@ -11,7 +11,10 @@ export function createVercelTools(options: VercelClientOptions) {
   const listProjects = tool({
     description: 'List all Vercel projects',
     inputSchema: z.object({
-      limit: z.number().optional().describe('Maximum number of projects to return'),
+      limit: z
+        .number()
+        .optional()
+        .describe('Maximum number of projects to return'),
     }),
     execute: async (params) => {
       const result = await client.listProjects({
@@ -50,7 +53,10 @@ export function createVercelTools(options: VercelClientOptions) {
     description: 'Create a new Vercel project',
     inputSchema: z.object({
       name: z.string().describe('Project name'),
-      framework: z.string().optional().describe('Framework (nextjs, react, etc)'),
+      framework: z
+        .string()
+        .optional()
+        .describe('Framework (nextjs, react, etc)'),
       buildCommand: z.string().optional().describe('Build command'),
       outputDirectory: z.string().optional().describe('Output directory'),
       installCommand: z.string().optional().describe('Install command'),
@@ -76,7 +82,10 @@ export function createVercelTools(options: VercelClientOptions) {
     description: 'List deployments for a Vercel project',
     inputSchema: z.object({
       projectIdOrName: z.string().describe('Project ID or name'),
-      limit: z.number().optional().describe('Maximum number of deployments to return'),
+      limit: z
+        .number()
+        .optional()
+        .describe('Maximum number of deployments to return'),
     }),
     execute: async (params) => {
       const result = await client.listDeployments(params.projectIdOrName, {
@@ -178,7 +187,10 @@ export function createVercelTools(options: VercelClientOptions) {
       variables: z.record(z.string()).describe('Environment variables to set'),
     }),
     execute: async (params) => {
-      const result = await client.upsertEnv(params.projectIdOrName, params.variables)
+      const result = await client.upsertEnv(
+        params.projectIdOrName,
+        params.variables,
+      )
 
       return {
         created: result.created.length,
@@ -212,7 +224,10 @@ export function createVercelTools(options: VercelClientOptions) {
       projectIdOrName: z.string().describe('Project ID or name'),
     }),
     execute: async (params) => {
-      const result = await client.createDomain(params.domain, params.projectIdOrName)
+      const result = await client.createDomain(
+        params.domain,
+        params.projectIdOrName,
+      )
 
       return {
         name: result.name,

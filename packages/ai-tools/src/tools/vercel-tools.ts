@@ -13,10 +13,19 @@ export function createVercelPlatformTools(config: VercelClientOptions) {
     description: 'Deploy a v0-generated application to Vercel platform',
     inputSchema: z.object({
       projectName: z.string().describe('Name for the Vercel project'),
-      framework: z.string().optional().describe('Framework (nextjs, react, etc)'),
+      framework: z
+        .string()
+        .optional()
+        .describe('Framework (nextjs, react, etc)'),
       buildCommand: z.string().optional().describe('Custom build command'),
-      outputDirectory: z.string().optional().describe('Output directory for build'),
-      environmentVariables: z.record(z.string()).optional().describe('Environment variables'),
+      outputDirectory: z
+        .string()
+        .optional()
+        .describe('Output directory for build'),
+      environmentVariables: z
+        .record(z.string())
+        .optional()
+        .describe('Environment variables'),
     }),
     execute: async (params) => {
       try {
@@ -81,11 +90,17 @@ export function createVercelPlatformTools(config: VercelClientOptions) {
     inputSchema: z.object({
       projectIdOrName: z.string().describe('Project ID or name'),
       variables: z.record(z.string()).describe('Environment variables to set'),
-      targets: z.array(z.enum(['production', 'preview', 'development'])).optional().describe('Deployment targets'),
+      targets: z
+        .array(z.enum(['production', 'preview', 'development']))
+        .optional()
+        .describe('Deployment targets'),
     }),
     execute: async (params) => {
       try {
-        const result = await vercel.upsertEnv(params.projectIdOrName, params.variables)
+        const result = await vercel.upsertEnv(
+          params.projectIdOrName,
+          params.variables,
+        )
 
         return {
           success: true,
@@ -106,14 +121,20 @@ export function createVercelPlatformTools(config: VercelClientOptions) {
     description: 'Create a production deployment from current code',
     inputSchema: z.object({
       projectIdOrName: z.string().describe('Project ID or name'),
-      env: z.record(z.string()).optional().describe('Production environment variables'),
+      env: z
+        .record(z.string())
+        .optional()
+        .describe('Production environment variables'),
     }),
     execute: async (params) => {
       try {
-        const deployment = await vercel.createDeployment(params.projectIdOrName, {
-          env: params.env,
-          public: true,
-        })
+        const deployment = await vercel.createDeployment(
+          params.projectIdOrName,
+          {
+            env: params.env,
+            public: true,
+          },
+        )
 
         return {
           success: true,
@@ -160,7 +181,10 @@ export function createVercelPlatformTools(config: VercelClientOptions) {
     }),
     execute: async (params) => {
       try {
-        const result = await vercel.createDomain(params.domain, params.projectIdOrName)
+        const result = await vercel.createDomain(
+          params.domain,
+          params.projectIdOrName,
+        )
 
         return {
           domain: result.name,
@@ -182,7 +206,10 @@ export function createVercelPlatformTools(config: VercelClientOptions) {
     description: 'Get performance analytics for a deployment',
     inputSchema: z.object({
       deploymentId: z.string().describe('Deployment ID'),
-      metric: z.enum(['pagesFetched', 'pageSize', 'readBytes', 'writeBytes']).optional().describe('Specific metric to retrieve'),
+      metric: z
+        .enum(['pagesFetched', 'pageSize', 'readBytes', 'writeBytes'])
+        .optional()
+        .describe('Specific metric to retrieve'),
     }),
     execute: async (params) => {
       try {

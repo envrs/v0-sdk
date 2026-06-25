@@ -47,6 +47,7 @@ A minimal Next.js application demonstrating v0 SDK integration with rate limitin
 **Stack**: Next.js, v0 SDK, Upstash Redis
 
 **Required Environment Variables**:
+
 ```
 V0_API_KEY=your_v0_api_key
 NEXT_PUBLIC_APP_URL=https://your-domain.vercel.app
@@ -55,12 +56,14 @@ KV_REST_API_TOKEN=your_upstash_redis_token
 ```
 
 **Setup Instructions**:
+
 1. Get a V0_API_KEY from https://v0.dev/docs/api
 2. Create an Upstash Redis database: https://upstash.com
 3. In Vercel dashboard, add the environment variables
 4. Deploy
 
 **Features**:
+
 - AI chat interface using v0 SDK
 - Rate limiting with Upstash Redis
 - Real-time chat streaming
@@ -74,6 +77,7 @@ Full-featured application with authentication, database, and AI elements.
 **Stack**: Next.js, v0 SDK, Vercel Postgres, NextAuth, AI Elements
 
 **Required Environment Variables**:
+
 ```
 V0_API_KEY=your_v0_api_key
 NEXT_PUBLIC_APP_URL=https://your-domain.vercel.app
@@ -85,6 +89,7 @@ DATABASE_URL_UNPOOLED=vercel_postgres_unpooled_connection
 ```
 
 **Setup Instructions**:
+
 1. Generate AUTH_SECRET: `openssl rand -base64 32`
 2. Create GitHub OAuth app at https://github.com/settings/developers
 3. Add Vercel Postgres in Vercel dashboard (Project → Storage → Create Database)
@@ -93,6 +98,7 @@ DATABASE_URL_UNPOOLED=vercel_postgres_unpooled_connection
 6. Deploy
 
 **Features**:
+
 - GitHub authentication
 - User profiles with Postgres
 - AI chat with AI elements components
@@ -107,17 +113,20 @@ Minimalist clone of v0 interface.
 **Stack**: Next.js, v0 SDK
 
 **Required Environment Variables**:
+
 ```
 V0_API_KEY=your_v0_api_key
 NEXT_PUBLIC_APP_URL=https://your-domain.vercel.app
 ```
 
 **Setup Instructions**:
+
 1. Get V0_API_KEY from https://v0.dev/docs/api
 2. Add environment variables
 3. Deploy
 
 **Features**:
+
 - Clean, minimalist interface
 - Component generation with v0 SDK
 - Fast and lightweight
@@ -131,17 +140,20 @@ React component showcase demonstrating various theming options.
 **Stack**: Next.js, v0 SDK React components
 
 **Required Environment Variables**:
+
 ```
 V0_API_KEY=your_v0_api_key
 NEXT_PUBLIC_APP_URL=https://your-domain.vercel.app
 ```
 
 **Setup Instructions**:
+
 1. Get V0_API_KEY from https://v0.dev/docs/api
 2. Add environment variables
 3. Deploy
 
 **Features**:
+
 - Multiple theme demonstrations
 - React component rendering
 - Responsive design examples
@@ -155,6 +167,7 @@ Advanced example showing AI SDK tools integration.
 **Stack**: Next.js, v0 SDK AI Tools, OpenAI API
 
 **Required Environment Variables**:
+
 ```
 V0_API_KEY=your_v0_api_key
 NEXT_PUBLIC_APP_URL=https://your-domain.vercel.app
@@ -162,12 +175,14 @@ OPENAI_API_KEY=your_openai_api_key
 ```
 
 **Setup Instructions**:
+
 1. Get V0_API_KEY from https://v0.dev/docs/api
 2. Get OpenAI API key from https://platform.openai.com
 3. Add environment variables
 4. Deploy
 
 **Features**:
+
 - AI-powered code generation
 - Advanced tool integration
 - Real-time streaming responses
@@ -212,6 +227,7 @@ vercel --prod
 ### Step 4: Configure Environment Variables
 
 In Vercel Dashboard:
+
 1. Go to Project Settings
 2. Select "Environment Variables"
 3. Add all required variables for your example
@@ -220,6 +236,7 @@ In Vercel Dashboard:
 ### Step 5: Verify Deployment
 
 After deployment:
+
 1. Visit the deployment URL
 2. Test core functionality
 3. Check logs: `vercel logs --prod`
@@ -232,12 +249,14 @@ After deployment:
 ### Build Failures
 
 **Issue**: "Cannot find module" error
+
 ```
 Solution: Ensure all environment variables are set in Vercel dashboard
           Clear cache: vercel env pull
 ```
 
 **Issue**: "Timeout" during build
+
 ```
 Solution: Check function duration settings in vercel.json
           Increase maxDuration for API routes
@@ -246,12 +265,14 @@ Solution: Check function duration settings in vercel.json
 ### Runtime Errors
 
 **Issue**: API key not working
+
 ```
 Solution: Verify environment variables are set correctly
           Check that NEXT_PUBLIC_* variables are visible to frontend
 ```
 
 **Issue**: Database connection failed
+
 ```
 Solution: Verify DATABASE_URL is correct in Vercel dashboard
           Test connection locally: psql $DATABASE_URL
@@ -260,6 +281,7 @@ Solution: Verify DATABASE_URL is correct in Vercel dashboard
 ### Performance Issues
 
 **Issue**: Slow initial load
+
 ```
 Solution: Enable ISR (Incremental Static Regeneration) in config
           Use vercel.json caching rules
@@ -280,6 +302,7 @@ Solution: Enable ISR (Incremental Static Regeneration) in config
 ### Web Vitals
 
 Monitor performance metrics:
+
 - LCP (Largest Contentful Paint)
 - FID (First Input Delay)
 - CLS (Cumulative Layout Shift)
@@ -289,6 +312,7 @@ View in: Project Settings → Analytics
 ### Environment Variables
 
 Manage secrets securely:
+
 1. Never commit `.env` files
 2. Use Vercel's built-in secret management
 3. Rotate keys regularly
@@ -313,6 +337,7 @@ View workflows in: `.github/workflows/`
 ### Database Optimization
 
 For v0-clone with Postgres:
+
 1. Enable connection pooling in Vercel Postgres settings
 2. Use parameterized queries to prevent SQL injection
 3. Add indexes on frequently queried columns

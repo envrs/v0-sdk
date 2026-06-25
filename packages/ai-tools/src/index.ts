@@ -4,7 +4,10 @@ import { createProjectTools } from './tools/project-tools'
 import { createDeploymentTools } from './tools/deployment-tools'
 import { createUserTools } from './tools/user-tools'
 import { createHookTools } from './tools/hook-tools'
-import { createVercelPlatformTools, type VercelPlatformTools } from './tools/vercel-tools'
+import {
+  createVercelPlatformTools,
+  type VercelPlatformTools,
+} from './tools/vercel-tools'
 
 /**
  * Creates all v0 AI SDK tools as a flat object.
