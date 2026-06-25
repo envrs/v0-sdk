@@ -13,7 +13,10 @@ describe('VercelClient', () => {
   })
 
   it('should accept teamId', () => {
-    const client = new VercelClient({ apiToken: 'test-token', teamId: 'team_123' })
+    const client = new VercelClient({
+      apiToken: 'test-token',
+      teamId: 'team_123',
+    })
     expect(client).toBeInstanceOf(VercelClient)
   })
 

@@ -8,7 +8,8 @@ import type { V0ToolsConfig } from '../types'
  * Extends v0 deployment tools with Vercel-specific operations
  */
 export function createVercelPlatformTools(config: V0ToolsConfig = {}) {
-  const apiToken = config.apiToken || config.apiKey || process.env.VERCEL_API_TOKEN || ''
+  const apiToken =
+    config.apiToken || config.apiKey || process.env.VERCEL_API_TOKEN || ''
   const teamId = config.teamId || process.env.VERCEL_TEAM_ID
   const vercel = createVercelClient(apiToken, teamId)
 
