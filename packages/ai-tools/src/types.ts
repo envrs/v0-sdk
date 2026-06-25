@@ -11,4 +11,14 @@ export interface V0ToolsConfig extends V0ClientConfig {
    * If not provided, will use V0_API_KEY environment variable
    */
   apiKey?: string
+  /**
+   * API token for Vercel API authentication
+   * If not provided, will use VERCEL_API_TOKEN environment variable
+   */
+  apiToken?: string
+  /**
+   * Vercel team ID for team-scoped operations
+   * If not provided, will use VERCEL_TEAM_ID environment variable
+   */
+  teamId?: string
 }

@@ -1,0 +1,25 @@
+{
+  "buildCommand": "cd ../.. && pnpm build --filter=v0-sdk-react-example",
+  "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
+  "env": ["V0_API_KEY", "NEXT_PUBLIC_APP_URL"],
+  "regions": ["sfo1"],
+  "functions": {
+    "api/**/*.ts": {
+      "maxDuration": 30,
+      "memory": 512
+    }
+  },
+  "redirects": [],
+  "rewrites": [],
+  "headers": [
+    {
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
+}

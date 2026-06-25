@@ -20,7 +20,8 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "v0-sdk": ["./packages/v0-sdk/src"]
+      "v0-sdk": ["./packages/v0-sdk/src"],
+      "@v0-sdk/vercel": ["./packages/vercel/src"]
     }
   },
   "include": ["packages/*/src/**/*", "packages/*/tests/**/*"],

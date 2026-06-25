@@ -1,0 +1,33 @@
+{
+  "buildCommand": "cd ../.. && pnpm build --filter=v0-clone",
+  "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
+  "env": [
+    "V0_API_KEY",
+    "NEXT_PUBLIC_APP_URL",
+    "AUTH_SECRET",
+    "AUTH_GITHUB_ID",
+    "AUTH_GITHUB_SECRET",
+    "DATABASE_URL",
+    "DATABASE_URL_UNPOOLED"
+  ],
+  "regions": ["sfo1"],
+  "functions": {
+    "api/**/*.ts": {
+      "maxDuration": 60,
+      "memory": 1024
+    }
+  },
+  "redirects": [],
+  "rewrites": [],
+  "headers": [
+    {
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
+}

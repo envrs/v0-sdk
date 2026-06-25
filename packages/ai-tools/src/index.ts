@@ -4,6 +4,10 @@ import { createProjectTools } from './tools/project-tools'
 import { createDeploymentTools } from './tools/deployment-tools'
 import { createUserTools } from './tools/user-tools'
 import { createHookTools } from './tools/hook-tools'
+import {
+  createVercelPlatformTools,
+  type VercelPlatformTools,
+} from './tools/vercel-tools'
 
 /**
  * Creates all v0 AI SDK tools as a flat object.
@@ -109,6 +113,11 @@ export function v0ToolsByCategory(config: V0ToolsConfig = {}) {
      * Webhook tools for creating and managing event hooks
      */
     hook: createHookTools(clientConfig),
+
+    /**
+     * Vercel Platform tools for deployment, projects, domains, and analytics
+     */
+    vercel: createVercelPlatformTools(clientConfig),
   }
 }
 
@@ -125,9 +134,11 @@ export { createProjectTools } from './tools/project-tools'
 export { createDeploymentTools } from './tools/deployment-tools'
 export { createUserTools } from './tools/user-tools'
 export { createHookTools } from './tools/hook-tools'
+export { createVercelPlatformTools } from './tools/vercel-tools'
 
 // Export types
 export type { V0ToolsConfig } from './types'
+export type { VercelPlatformTools } from './tools/vercel-tools'
 
 // Default export
 export default v0Tools

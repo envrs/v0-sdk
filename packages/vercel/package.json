@@ -1,7 +1,7 @@
 {
-  "name": "@v0-sdk/ai-tools",
-  "version": "0.3.8",
-  "description": "AI SDK tools for the v0 Platform API",
+  "name": "@v0-sdk/vercel",
+  "version": "0.1.0",
+  "description": "Vercel Platform API integration for the v0 SDK",
   "homepage": "https://v0.dev/docs/api",
   "repository": {
     "type": "git",
@@ -25,34 +25,32 @@
     "build": "bunchee",
     "clean": "rm -rf dist *.tsbuildinfo",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "lint": "echo 'No linting configured for ai-tools package'",
+    "lint": "echo 'No linting configured for vercel package'",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "keywords": [
     "v0",
     "vercel",
-    "ai",
-    "ai-sdk",
-    "tools",
-    "chat",
+    "api",
+    "platform",
+    "deployments",
     "sdk"
   ],
   "license": "Apache-2.0",
   "dependencies": {
-    "v0-sdk": "workspace:*",
-    "@v0-sdk/vercel": "workspace:*",
     "zod": "^3.23.8"
+  },
+  "peerDependencies": {
+    "ai": "^5.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.12.0",
+    "ai": "^5.0.0",
     "bunchee": "^6.5.2",
     "prettier": "^3.3.3",
     "typescript": "^6.0.3",
     "vitest": "^3.2.4"
-  },
-  "peerDependencies": {
-    "ai": "^5.0.0"
   },
   "engines": {
     "node": ">=22",

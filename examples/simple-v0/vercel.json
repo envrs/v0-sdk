@@ -1,0 +1,30 @@
+{
+  "buildCommand": "cd ../.. && pnpm build --filter=simple-v0",
+  "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
+  "env": [
+    "V0_API_KEY",
+    "NEXT_PUBLIC_APP_URL",
+    "KV_REST_API_URL",
+    "KV_REST_API_TOKEN"
+  ],
+  "regions": ["sfo1"],
+  "functions": {
+    "api/**/*.ts": {
+      "maxDuration": 60,
+      "memory": 1024
+    }
+  },
+  "redirects": [],
+  "rewrites": [],
+  "headers": [
+    {
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
+}

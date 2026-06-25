@@ -1,0 +1,25 @@
+{
+  "buildCommand": "cd ../.. && pnpm build --filter=ai-tools-example",
+  "installCommand": "cd ../.. && pnpm install --frozen-lockfile",
+  "env": ["V0_API_KEY", "NEXT_PUBLIC_APP_URL", "OPENAI_API_KEY"],
+  "regions": ["sfo1"],
+  "functions": {
+    "api/**/*.ts": {
+      "maxDuration": 120,
+      "memory": 1024
+    }
+  },
+  "redirects": [],
+  "rewrites": [],
+  "headers": [
+    {
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
