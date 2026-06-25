@@ -118,7 +118,8 @@ export interface AnalyticsOptions {
 }
 
 export interface VercelClientOptions {
-  apiToken: string
+  apiToken?: string
+  apiKey?: string
   teamId?: string
   baseURL?: string
 }

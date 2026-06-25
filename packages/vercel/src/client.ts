@@ -22,10 +22,7 @@ export class VercelClient {
   private baseURL: string
 
   constructor(options: VercelClientOptions) {
-    if (!options.apiToken) {
-      throw new Error('Vercel API token is required')
-    }
-    this.apiToken = options.apiToken
+    this.apiToken = options.apiToken || options.apiKey || ''
     this.teamId = options.teamId
     this.baseURL = options.baseURL || 'https://api.vercel.com'
   }
@@ -71,7 +68,7 @@ export class VercelClient {
       )
     }
 
-    return response.json()
+    return response.json() as Promise<T>
   }
 
   // ===== Projects =====

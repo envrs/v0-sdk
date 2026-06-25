@@ -652,6 +652,9 @@ importers:
       '@types/node':
         specifier: ^22.12.0
         version: 22.19.17
+      ai:
+        specifier: ^5.0.0
+        version: 5.0.182(zod@3.25.76)
       bunchee:
         specifier: ^6.5.2
         version: 6.10.0(typescript@6.0.3)

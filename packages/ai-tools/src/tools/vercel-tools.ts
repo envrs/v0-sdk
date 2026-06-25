@@ -1,13 +1,16 @@
 import { tool } from 'ai'
 import { z } from 'zod'
-import { createVercelClient, type VercelClientOptions } from '@v0-sdk/vercel'
+import { createVercelClient } from '@v0-sdk/vercel'
+import type { V0ToolsConfig } from '../types'
 
 /**
  * Creates Vercel Platform AI SDK tools for enhanced deployment capabilities
  * Extends v0 deployment tools with Vercel-specific operations
  */
-export function createVercelPlatformTools(config: VercelClientOptions) {
-  const vercel = createVercelClient(config.apiToken, config.teamId)
+export function createVercelPlatformTools(config: V0ToolsConfig = {}) {
+  const apiToken = config.apiToken || config.apiKey || process.env.VERCEL_API_TOKEN || ''
+  const teamId = config.teamId || process.env.VERCEL_TEAM_ID
+  const vercel = createVercelClient(apiToken, teamId)
 
   const deployToVercel = tool({
     description: 'Deploy a v0-generated application to Vercel platform',
