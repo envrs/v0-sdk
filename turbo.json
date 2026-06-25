@@ -4,7 +4,23 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
+      "outputs": ["dist/**"],
+      "passThroughEnv": [
+        "KV_URL",
+        "KV_REST_API_TOKEN",
+        "KV_REST_API_URL",
+        "REDIS_URL",
+        "KV_REST_API_READ_ONLY_TOKEN",
+        "POSTGRES_USER",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_HOST",
+        "POSTGRES_URL",
+        "POSTGRES_URL_NON_POOLING",
+        "POSTGRES_PRISMA_URL",
+        "V0_API_KEY",
+        "VERCEL_API_TOKEN",
+        "VERCEL_TEAM_ID"
+      ]
     },
     "test": {
       "dependsOn": ["^build", "build"]
