@@ -7,7 +7,6 @@
       "devDependencies": {
         "oxfmt": "^0.55.0",
         "oxlint": "^1.70.0",
-        "turbo": "^2.5.8",
       },
     },
     "examples/basic": {
@@ -103,9 +102,9 @@
     },
     "packages/ai-tools": {
       "name": "@v0-sdk/ai-tools",
-      "version": "3.0.4",
+      "version": "3.0.0",
       "dependencies": {
-        "v0": "3.0.4",
+        "v0": "3.0.0",
         "zod": "^4.1.11",
       },
       "devDependencies": {
@@ -121,7 +120,7 @@
     },
     "packages/create-v0-sdk-app": {
       "name": "create-v0-sdk-app",
-      "version": "3.0.4",
+      "version": "3.0.0",
       "bin": {
         "create-v0-sdk-app": "./dist/index.js",
       },
@@ -138,16 +137,15 @@
         "@types/node": "^22.0.0",
         "@types/prompts": "^2.4.2",
         "@types/validate-npm-package-name": "^4.0.2",
-        "tsdown": "^0.21.4",
         "tsx": "^4.19.2",
         "typescript": "^6.0.3",
       },
     },
     "packages/react": {
       "name": "@v0-sdk/react",
-      "version": "3.0.4",
+      "version": "3.0.0",
       "dependencies": {
-        "v0": "3.0.4",
+        "v0": "3.0.0",
       },
       "devDependencies": {
         "@ai-sdk/react": "^4.0.34",
@@ -173,9 +171,9 @@
         "swr",
       ],
     },
-    "packages/v0": {
+    "packages/v0-sdk": {
       "name": "v0",
-      "version": "3.0.4",
+      "version": "3.0.0",
       "dependencies": {
         "@vercel/oidc": "^3.5.0",
         "jsondiffpatch": "^0.7.2",
@@ -1465,7 +1463,7 @@
 
     "uuid": ["uuid@14.0.1", "", { "bin": { "uuid": "dist-node/bin/uuid" } }, "sha512-6ZxzVpzDXDa3bJWaHilVayA+BH/1zmxCJoVgvmqJnid/gPoKHxUrS/aC/T6LGQtNHT+XHG9fXPJB4d+IrU30Ew=="],
 
-    "v0": ["v0@workspace:packages/v0"],
+    "v0": ["v0@workspace:packages/v0-sdk"],
 
     "v0-clone": ["v0-clone@workspace:examples/v0-clone"],
 
