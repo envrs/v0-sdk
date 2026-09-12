@@ -248,10 +248,20 @@ function CodeEditor({
         <aside className="flex w-56 shrink-0 flex-col border-r border-border">
           <div className="flex items-center gap-1 border-b border-border p-2">
             <span className="flex-1 text-xs font-medium">Explorer</span>
-            <Button aria-label="Create file" onClick={() => addFile(`untitled-${files.length + 1}.tsx`)} size="icon-xs" variant="ghost">
+            <Button
+              aria-label="Create file"
+              onClick={() => addFile(`untitled-${files.length + 1}.tsx`)}
+              size="icon-xs"
+              variant="ghost"
+            >
               <PlusIcon />
             </Button>
-            <Button aria-label="Hide explorer" onClick={() => setShowExplorer(false)} size="icon-xs" variant="ghost">
+            <Button
+              aria-label="Hide explorer"
+              onClick={() => setShowExplorer(false)}
+              size="icon-xs"
+              variant="ghost"
+            >
               <SidebarToggleIcon />
             </Button>
           </div>
@@ -325,7 +335,12 @@ function CodeEditor({
             <span className="text-[11px] text-muted-foreground">{changedFiles.length} unsaved</span>
           ) : null}
           {status ? (
-            <span className={cn('text-[11px]', status === 'Saved' ? 'text-muted-foreground' : 'text-destructive')}>
+            <span
+              className={cn(
+                'text-[11px]',
+                status === 'Saved' ? 'text-muted-foreground' : 'text-destructive',
+              )}
+            >
               {status}
             </span>
           ) : null}
@@ -364,7 +379,12 @@ function CodeEditor({
           >
             Split
           </Button>
-          <Button disabled={!changedFiles.length || isSaving} onClick={reset} size="xs" variant="ghost">
+          <Button
+            disabled={!changedFiles.length || isSaving}
+            onClick={reset}
+            size="xs"
+            variant="ghost"
+          >
             Reset
           </Button>
           <Button disabled={!changedFiles.length || isSaving} onClick={() => void save()} size="xs">

@@ -265,7 +265,9 @@ export function ChatConversation({
                 >
                   <span className="truncate text-muted-foreground">
                     {i + 1}. {item.text.slice(0, 60) || item.text || '(no text)'}
-                    {item.files.length > 0 ? ` (+${item.files.length} file${item.files.length > 1 ? 's' : ''})` : ''}
+                    {item.files.length > 0
+                      ? ` (+${item.files.length} file${item.files.length > 1 ? 's' : ''})`
+                      : ''}
                   </span>
                   <button
                     type="button"
