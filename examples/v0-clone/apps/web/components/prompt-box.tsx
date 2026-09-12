@@ -1,7 +1,7 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import { PromptInputActionAddAttachments } from '@/components/ai-elements/prompt-input'
+import { PromptInputActionAddAttachments, PromptInputActionMenuItem } from '@/components/ai-elements/prompt-input'
 import {
   PromptInput,
   PromptInputActionMenu,
@@ -29,7 +29,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/utils'
 import { AVAILABLE_MODELS, MODEL_LABELS, type ModelType } from '@/lib/hooks/useSettings'
-import { PlusIcon, ArrowUpIcon, ChevronDownIcon, StopIcon, V0LogoIcon } from '@/lib/icons'
+import { PlusIcon, ArrowUpIcon, ChevronDownIcon, StopIcon, V0LogoIcon, CodeIcon } from '@/lib/icons'
 
 export function PromptBox({
   onSubmit,
@@ -97,6 +97,15 @@ export function PromptBox({
               </PromptInputActionMenuTrigger>
               <PromptInputActionMenuContent>
                 <PromptInputActionAddAttachments disabled={isSubmitting} />
+                <PromptInputActionMenuItem
+                  disabled={isSubmitting}
+                  onClick={() => {
+                    window.location.href = '/api/integrations/figma/connect'
+                  }}
+                >
+                  <CodeIcon className="mr-2 size-4" />
+                  Import from Figma
+                </PromptInputActionMenuItem>
               </PromptInputActionMenuContent>
             </PromptInputActionMenu>
           )}
