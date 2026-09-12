@@ -7,6 +7,7 @@
     "examples/v0-clone/apps/*"
   ],
   "type": "module",
+  "packageManager": "bun@1.4.0",
   "scripts": {
     "generate": "bun --filter '*' generate",
     "build": "bun --filter './packages/*' build",
