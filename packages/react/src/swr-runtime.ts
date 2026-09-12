@@ -4,7 +4,10 @@ import useSWRInfinite, {
   type SWRInfiniteKeyLoader,
   type SWRInfiniteResponse,
 } from 'swr/infinite'
-import useSWRMutation, { type SWRMutationConfiguration, type SWRMutationResponse } from 'swr/mutation'
+import useSWRMutation, {
+  type SWRMutationConfiguration,
+  type SWRMutationResponse,
+} from 'swr/mutation'
 
 import {
   requestV0Operation,

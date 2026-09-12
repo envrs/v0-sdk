@@ -28,10 +28,7 @@ export async function clearFigmaToken() {
   cookieStore.delete(FIGMA_TOKEN_COOKIE)
 }
 
-export async function figmaRequest<T>(
-  path: string,
-  init?: RequestInit,
-): Promise<T> {
+export async function figmaRequest<T>(path: string, init?: RequestInit): Promise<T> {
   const token = await getFigmaToken()
   if (!token) throw new Error('Figma token not configured.')
 

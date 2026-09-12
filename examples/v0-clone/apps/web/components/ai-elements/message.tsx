@@ -182,9 +182,7 @@ export type MessageBranchSelectorProps = HTMLAttributes<HTMLDivElement> & {
   from: UIMessage['role']
 }
 
-export const MessageBranchSelector = ({
-  ...props
-}: MessageBranchSelectorProps) => {
+export const MessageBranchSelector = ({ ...props }: MessageBranchSelectorProps) => {
   const { totalBranches } = useMessageBranch()
 
   // Don't render if there's only one branch
