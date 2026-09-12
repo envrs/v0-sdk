@@ -261,12 +261,12 @@ function renderQuery(operation: Operation): string {
     : ''
   const queryName = operation.queryParameters.length ? 'params' : 'undefined'
 
-  return `${renderOperationDefinition(operation)}\n\nexport function ${publicName}(\n  url: V0Url,\n${paramsLine}  configuration: V0QueryConfiguration<${responseType}, ${errorType}> = {},\n) {\n  return useV0Query<${responseType}, ${errorType}, ${queryType}>(\n    ${getOperationName(operation)},\n    url,\n    ${queryName},\n    configuration,\n  )\n}\n`
+  return `${renderOperationDefinition(operation)}\n\nexport function ${publicName}(\n  url: V0Url,\n${paramsLine}  configuration: V0QueryConfiguration<${responseType}, ${errorType}> = {},\n): SWRResponse<${responseType}, V0ResponseError<${errorType}>> {\n  return useV0Query<${responseType}, ${errorType}, ${queryType}>(\n    ${getOperationName(operation)},\n    url,\n    ${queryName},\n    configuration,\n  )\n}\n`
 }
 
 function renderInfinite(operation: Operation): string {
-  const { typePrefix } = operation
-  const publicName = `${operation.publicName}Infinite`
+  const { typePrefix, publicName } = operation
+  const publicNameInfinite = `${operation.publicName}Infinite`
   const responseType = `${typePrefix}Response`
   const errorType = `${typePrefix}Error`
   const queryType = `Omit<NonNullable<${typePrefix}Data['query']>, 'cursor'>`
@@ -276,7 +276,7 @@ function renderInfinite(operation: Operation): string {
   const paramsLine = `  params${requiredQuery ? '' : '?'}: ${queryType},`
   const input = requiredQuery ? 'params' : 'params ?? {}'
 
-  return `export function ${publicName}(\n  url: V0Url,\n${paramsLine}\n  configuration: V0InfiniteConfiguration<${responseType}, ${errorType}> = {},\n) {\n  return useV0CursorQuery(\n    ${getOperationName(operation)},\n    url,\n    ${input},\n    (page) => page.${operation.cursorPath ?? 'cursor'},\n    configuration,\n  )\n}\n`
+  return `export function ${publicNameInfinite}(\n  url: V0Url,\n${paramsLine}\n  configuration: V0InfiniteConfiguration<${responseType}, ${errorType}> = {},\n): SWRInfiniteResponse<${responseType}, V0ResponseError<${errorType}>> {\n  return useV0CursorQuery(\n    ${getOperationName(operation)},\n    url,\n    ${input},\n    (page) => page.${operation.cursorPath ?? 'cursor'},\n    configuration,\n  )\n}\n`
 }
 
 function renderMutation(operation: Operation): string {
@@ -286,7 +286,7 @@ function renderMutation(operation: Operation): string {
   const inputType = operation.hasBody ? `${typePrefix}Data['body']` : 'never'
   const inputAlias = `${publicName.slice(3)}Input`
 
-  return `${renderOperationDefinition(operation)}\n\n${operation.hasBody ? `export type ${inputAlias} = ${inputType}\n` : ''}export function ${publicName}(\n  url: string,\n  configuration: V0MutationConfiguration<${responseType}, ${errorType}, ${inputType}> = {},\n) {\n  return useV0Mutation(${getOperationName(operation)}, url, configuration)\n}\n`
+  return `${renderOperationDefinition(operation)}\n\n${operation.hasBody ? `export type ${inputAlias} = ${inputType}\n` : ''}export function ${publicName}(\n  url: string,\n  configuration: V0MutationConfiguration<${responseType}, ${errorType}, ${inputType}> = {},\n): SWRMutationResponse<${responseType}, ${errorType}> {\n  return useV0Mutation(${getOperationName(operation)}, url, configuration)\n}\n`
 }
 
 function getResponseType(operation: Operation): string {
