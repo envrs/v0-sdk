@@ -1,9 +1,16 @@
 'use client'
 
 import type { ReactNode } from 'react'
+import { PromptInputActionAddAttachments } from '@/components/ai-elements/prompt-input'
 import {
   PromptInput,
+  PromptInputActionMenu,
+  PromptInputActionMenuContent,
+  PromptInputActionMenuTrigger,
+  PromptInputAttachment,
+  PromptInputAttachments,
   PromptInputBody,
+  PromptInputSpeechButton,
   PromptInputTextarea,
   PromptInputFooter,
   PromptInputTools,
@@ -11,6 +18,8 @@ import {
   PromptInputSubmit,
   type PromptInputMessage,
 } from '@/components/ai-elements/prompt-input'
+import { useRef } from 'react'
+import type { FileUIPart } from 'ai'
 import { Loader } from '@/components/ai-elements/loader'
 import {
   DropdownMenu,
@@ -36,7 +45,7 @@ export function PromptBox({
   className,
   attachmentMenu,
 }: {
-  onSubmit?: (text: string) => void | Promise<void>
+  onSubmit?: (text: string, files: FileUIPart[]) => void | Promise<void>
   onStop?: () => void | Promise<void>
   isSubmitting?: boolean
   isStopping?: boolean
@@ -49,10 +58,11 @@ export function PromptBox({
   className?: string
   attachmentMenu?: ReactNode
 }) {
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null)
   const handleSubmit = (message: PromptInputMessage) => {
     const text = message.text.trim()
     if (!text || !onSubmit || isSubmitting) return
-    return onSubmit(text)
+    return onSubmit(text, message.files)
   }
 
   return (
@@ -69,15 +79,33 @@ export function PromptBox({
           )}
           disabled={isSubmitting}
           placeholder={placeholder}
+          ref={textareaRef}
         />
       </PromptInputBody>
+      <PromptInputAttachments>
+        {(attachment) => <PromptInputAttachment data={attachment} />}
+      </PromptInputAttachments>
       <PromptInputFooter className="px-2 pb-2">
         <PromptInputTools>
           {attachmentMenu ?? (
-            <PromptInputButton aria-label="Add attachment" disabled>
-              <PlusIcon className="size-4" />
-            </PromptInputButton>
+            <PromptInputActionMenu>
+              <PromptInputActionMenuTrigger
+                aria-label="Add attachment"
+                disabled={isSubmitting}
+              >
+                <PlusIcon className="size-4" />
+              </PromptInputActionMenuTrigger>
+              <PromptInputActionMenuContent>
+                <PromptInputActionAddAttachments disabled={isSubmitting} />
+              </PromptInputActionMenuContent>
+            </PromptInputActionMenu>
           )}
+
+          <PromptInputSpeechButton
+            aria-label="Dictate prompt"
+            disabled={isSubmitting}
+            textareaRef={textareaRef}
+          />
 
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
