@@ -212,7 +212,7 @@ export function useCreateChatBlocking(
     ChatsCreateError,
     ChatsCreateData['body']
   > = {},
-): SWRMutationResponse<ChatsCreateResponse, ChatsCreateError> {
+) {
   return useV0Mutation(createChatBlockingOperation, url, configuration)
 }
 
@@ -230,7 +230,7 @@ export function useCreateChatAsync(
     ChatsCreateAsyncError,
     ChatsCreateAsyncData['body']
   > = {},
-): SWRMutationResponse<ChatsCreateAsyncResponse, ChatsCreateAsyncError> {
+) {
   return useV0Mutation(createChatAsyncOperation, url, configuration)
 }
 
@@ -249,7 +249,7 @@ export function useCreateChatFromFiles(
     ChatsCreateFromFilesError,
     ChatsCreateFromFilesData['body']
   > = {},
-): SWRMutationResponse<ChatsCreateFromFilesResponse, ChatsCreateFromFilesError> {
+) {
   return useV0Mutation(createChatFromFilesOperation, url, configuration)
 }
 
@@ -268,7 +268,7 @@ export function useCreateChatFromRepo(
     ChatsCreateFromRepoError,
     ChatsCreateFromRepoData['body']
   > = {},
-): SWRMutationResponse<ChatsCreateFromRepoResponse, ChatsCreateFromRepoError> {
+) {
   return useV0Mutation(createChatFromRepoOperation, url, configuration)
 }
 
@@ -287,7 +287,7 @@ export function useCreateChatFromZip(
     ChatsCreateFromZipError,
     ChatsCreateFromZipData['body']
   > = {},
-): SWRMutationResponse<ChatsCreateFromZipResponse, ChatsCreateFromZipError> {
+) {
   return useV0Mutation(createChatFromZipOperation, url, configuration)
 }
 
@@ -305,7 +305,7 @@ export function useCreateChat(
     ChatsCreateStreamError,
     ChatsCreateStreamData['body']
   > = {},
-): SWRMutationResponse<Response, ChatsCreateStreamError> {
+) {
   return useV0Mutation(createChatOperation, url, configuration)
 }
 
@@ -323,7 +323,7 @@ export function useCreateProject(
     ChatsCreateVercelProjectError,
     ChatsCreateVercelProjectData['body']
   > = {},
-): SWRMutationResponse<ChatsCreateVercelProjectResponse, ChatsCreateVercelProjectError> {
+) {
   return useV0Mutation(createProjectOperation, url, configuration)
 }
 
@@ -337,7 +337,7 @@ const deleteChatOperation: V0Operation<ChatsDeleteResponse> = {
 export function useDeleteChat(
   url: string,
   configuration: V0MutationConfiguration<ChatsDeleteResponse, ChatsDeleteError, never> = {},
-): SWRMutationResponse<ChatsDeleteResponse, ChatsDeleteError> {
+) {
   return useV0Mutation(deleteChatOperation, url, configuration)
 }
 
@@ -350,7 +350,7 @@ const deployChatOperation: V0Operation<ChatsDeployResponse> = {
 export function useDeployChat(
   url: string,
   configuration: V0MutationConfiguration<ChatsDeployResponse, ChatsDeployError, never> = {},
-): SWRMutationResponse<ChatsDeployResponse, ChatsDeployError> {
+) {
   return useV0Mutation(deployChatOperation, url, configuration)
 }
 
@@ -363,7 +363,7 @@ const downloadChatFilesOperation: V0Operation<Blob> = {
 export function useDownloadChatFiles(
   url: string,
   configuration: V0MutationConfiguration<Blob, ChatsDownloadFilesError, never> = {},
-): SWRMutationResponse<Blob, ChatsDownloadFilesError> {
+) {
   return useV0Mutation(downloadChatFilesOperation, url, configuration)
 }
 
@@ -382,7 +382,7 @@ export function useDuplicateChat(
     ChatsDuplicateError,
     ChatsDuplicateData['body']
   > = {},
-): SWRMutationResponse<ChatsDuplicateResponse, ChatsDuplicateError> {
+) {
   return useV0Mutation(duplicateChatOperation, url, configuration)
 }
 
@@ -396,7 +396,7 @@ const chatOperation: V0Operation<ChatsGetResponse> = {
 export function useChat(
   url: V0Url,
   configuration: V0QueryConfiguration<ChatsGetResponse, ChatsGetError> = {},
-): SWRResponse<ChatsGetResponse, V0ResponseError<ChatsGetError>> {
+) {
   return useV0Query<ChatsGetResponse, ChatsGetError, undefined>(
     chatOperation,
     url,
@@ -418,7 +418,7 @@ export function useConnectStatus(
     ChatsGetConnectStatusResponse,
     ChatsGetConnectStatusError
   > = {},
-): SWRResponse<ChatsGetConnectStatusResponse, V0ResponseError<ChatsGetConnectStatusError>> {
+) {
   return useV0Query<
     ChatsGetConnectStatusResponse,
     ChatsGetConnectStatusError,
@@ -435,7 +435,7 @@ const filesOperation: V0Operation<ChatsGetFilesResponse> = {
 export function useFiles(
   url: V0Url,
   configuration: V0QueryConfiguration<ChatsGetFilesResponse, ChatsGetFilesError> = {},
-): SWRResponse<ChatsGetFilesResponse, V0ResponseError<ChatsGetFilesError>> {
+) {
   return useV0Query<ChatsGetFilesResponse, ChatsGetFilesError, undefined>(
     filesOperation,
     url,
@@ -454,7 +454,7 @@ const previewOperation: V0Operation<ChatsGetPreviewResponse> = {
 export function usePreview(
   url: V0Url,
   configuration: V0QueryConfiguration<ChatsGetPreviewResponse, ChatsGetPreviewError> = {},
-): SWRResponse<ChatsGetPreviewResponse, V0ResponseError<ChatsGetPreviewError>> {
+) {
   return useV0Query<ChatsGetPreviewResponse, ChatsGetPreviewError, undefined>(
     previewOperation,
     url,
@@ -474,7 +474,7 @@ export function useChats(
   url: V0Url,
   params?: NonNullable<ChatsListData['query']>,
   configuration: V0QueryConfiguration<ChatsListResponse, ChatsListError> = {},
-): SWRResponse<ChatsListResponse, V0ResponseError<ChatsListError>> {
+) {
   return useV0Query<
     ChatsListResponse,
     ChatsListError,
@@ -486,7 +486,7 @@ export function useChatsInfinite(
   url: V0Url,
   params?: Omit<NonNullable<ChatsListData['query']>, 'cursor'>,
   configuration: V0InfiniteConfiguration<ChatsListResponse, ChatsListError> = {},
-): SWRInfiniteResponse<ChatsListResponse, V0ResponseError<ChatsListError>> {
+) {
   return useV0CursorQuery(chatsOperation, url, params ?? {}, (page) => page.cursor, configuration)
 }
 
@@ -506,7 +506,7 @@ export function useRestoreMessage(
     ChatsRestoreMessageError,
     ChatsRestoreMessageData['body']
   > = {},
-): SWRMutationResponse<ChatsRestoreMessageResponse, ChatsRestoreMessageError> {
+) {
   return useV0Mutation(restoreMessageOperation, url, configuration)
 }
 
@@ -519,7 +519,7 @@ const resumeChatOperation: V0Operation<Response> = {
 export function useResumeChat(
   url: string,
   configuration: V0MutationConfiguration<Response, ChatsResumeError, never> = {},
-): SWRMutationResponse<Response, ChatsResumeError> {
+) {
   return useV0Mutation(resumeChatOperation, url, configuration)
 }
 
@@ -539,7 +539,7 @@ export function useUpdateChat(
     ChatsUpdateError,
     ChatsUpdateData['body']
   > = {},
-): SWRMutationResponse<ChatsUpdateResponse, ChatsUpdateError> {
+) {
   return useV0Mutation(updateChatOperation, url, configuration)
 }
 
@@ -559,7 +559,7 @@ export function useUpdateChatFiles(
     ChatsUpdateFilesError,
     ChatsUpdateFilesData['body']
   > = {},
-): SWRMutationResponse<ChatsUpdateFilesResponse, ChatsUpdateFilesError> {
+) {
   return useV0Mutation(updateChatFilesOperation, url, configuration)
 }
 
@@ -578,7 +578,7 @@ export function useCreateMcpServer(
     McpServersCreateError,
     McpServersCreateData['body']
   > = {},
-): SWRMutationResponse<McpServersCreateResponse, McpServersCreateError> {
+) {
   return useV0Mutation(createMcpServerOperation, url, configuration)
 }
 
@@ -595,7 +595,7 @@ export function useDeleteMcpServer(
     McpServersDeleteError,
     never
   > = {},
-): SWRMutationResponse<McpServersDeleteResponse, McpServersDeleteError> {
+) {
   return useV0Mutation(deleteMcpServerOperation, url, configuration)
 }
 
@@ -609,7 +609,7 @@ const mcpServerOperation: V0Operation<McpServersGetResponse> = {
 export function useMcpServer(
   url: V0Url,
   configuration: V0QueryConfiguration<McpServersGetResponse, McpServersGetError> = {},
-): SWRResponse<McpServersGetResponse, V0ResponseError<McpServersGetError>> {
+) {
   return useV0Query<McpServersGetResponse, McpServersGetError, undefined>(
     mcpServerOperation,
     url,
@@ -628,7 +628,7 @@ const mcpServersOperation: V0Operation<McpServersListResponse> = {
 export function useMcpServers(
   url: V0Url,
   configuration: V0QueryConfiguration<McpServersListResponse, McpServersListError> = {},
-): SWRResponse<McpServersListResponse, V0ResponseError<McpServersListError>> {
+) {
   return useV0Query<McpServersListResponse, McpServersListError, undefined>(
     mcpServersOperation,
     url,
@@ -652,7 +652,7 @@ export function useUpdateMcpServer(
     McpServersUpdateError,
     McpServersUpdateData['body']
   > = {},
-): SWRMutationResponse<McpServersUpdateResponse, McpServersUpdateError> {
+) {
   return useV0Mutation(updateMcpServerOperation, url, configuration)
 }
 
@@ -666,7 +666,7 @@ const messageOperation: V0Operation<MessagesGetResponse> = {
 export function useMessage(
   url: V0Url,
   configuration: V0QueryConfiguration<MessagesGetResponse, MessagesGetError> = {},
-): SWRResponse<MessagesGetResponse, V0ResponseError<MessagesGetError>> {
+) {
   return useV0Query<MessagesGetResponse, MessagesGetError, undefined>(
     messageOperation,
     url,
@@ -686,7 +686,7 @@ export function useMessages(
   url: V0Url,
   params: NonNullable<MessagesListData['query']>,
   configuration: V0QueryConfiguration<MessagesListResponse, MessagesListError> = {},
-): SWRResponse<MessagesListResponse, V0ResponseError<MessagesListError>> {
+) {
   return useV0Query<
     MessagesListResponse,
     MessagesListError,
@@ -698,7 +698,7 @@ export function useMessagesInfinite(
   url: V0Url,
   params: Omit<NonNullable<MessagesListData['query']>, 'cursor'>,
   configuration: V0InfiniteConfiguration<MessagesListResponse, MessagesListError> = {},
-): SWRInfiniteResponse<MessagesListResponse, V0ResponseError<MessagesListError>> {
+) {
   return useV0CursorQuery(messagesOperation, url, params, (page) => page.cursor, configuration)
 }
 
@@ -717,7 +717,7 @@ export function useResolveTaskBlocking(
     MessagesResolveError,
     MessagesResolveData['body']
   > = {},
-): SWRMutationResponse<MessagesResolveResponse, MessagesResolveError> {
+) {
   return useV0Mutation(resolveTaskBlockingOperation, url, configuration)
 }
 
@@ -735,7 +735,7 @@ export function useResolveTaskAsync(
     MessagesResolveAsyncError,
     MessagesResolveAsyncData['body']
   > = {},
-): SWRMutationResponse<MessagesResolveAsyncResponse, MessagesResolveAsyncError> {
+) {
   return useV0Mutation(resolveTaskAsyncOperation, url, configuration)
 }
 
@@ -753,7 +753,7 @@ export function useResolveTask(
     MessagesResolveStreamError,
     MessagesResolveStreamData['body']
   > = {},
-): SWRMutationResponse<Response, MessagesResolveStreamError> {
+) {
   return useV0Mutation(resolveTaskOperation, url, configuration)
 }
 
@@ -772,7 +772,7 @@ export function useSendMessageBlocking(
     MessagesSendError,
     MessagesSendData['body']
   > = {},
-): SWRMutationResponse<MessagesSendResponse, MessagesSendError> {
+) {
   return useV0Mutation(sendMessageBlockingOperation, url, configuration)
 }
 
@@ -790,7 +790,7 @@ export function useSendMessageAsync(
     MessagesSendAsyncError,
     MessagesSendAsyncData['body']
   > = {},
-): SWRMutationResponse<MessagesSendAsyncResponse, MessagesSendAsyncError> {
+) {
   return useV0Mutation(sendMessageAsyncOperation, url, configuration)
 }
 
@@ -808,7 +808,7 @@ export function useSendMessage(
     MessagesSendStreamError,
     MessagesSendStreamData['body']
   > = {},
-): SWRMutationResponse<Response, MessagesSendStreamError> {
+) {
   return useV0Mutation(sendMessageOperation, url, configuration)
 }
 
@@ -821,7 +821,7 @@ const stopMessageOperation: V0Operation<MessagesStopResponse> = {
 export function useStopMessage(
   url: string,
   configuration: V0MutationConfiguration<MessagesStopResponse, MessagesStopError, never> = {},
-): SWRMutationResponse<MessagesStopResponse, MessagesStopError> {
+) {
   return useV0Mutation(stopMessageOperation, url, configuration)
 }
 
@@ -837,7 +837,7 @@ export function usePreviewHosts(
     SettingsGetPreviewHostsResponse,
     SettingsGetPreviewHostsError
   > = {},
-): SWRResponse<SettingsGetPreviewHostsResponse, V0ResponseError<SettingsGetPreviewHostsError>> {
+) {
   return useV0Query<SettingsGetPreviewHostsResponse, SettingsGetPreviewHostsError, undefined>(
     previewHostsOperation,
     url,
@@ -860,7 +860,7 @@ export function useSetPreviewHosts(
     SettingsSetPreviewHostsError,
     SettingsSetPreviewHostsData['body']
   > = {},
-): SWRMutationResponse<SettingsSetPreviewHostsResponse, SettingsSetPreviewHostsError> {
+) {
   return useV0Mutation(setPreviewHostsOperation, url, configuration)
 }
 
@@ -875,7 +875,7 @@ export function useUsageActivity(
   url: V0Url,
   params?: NonNullable<UsageGetActivityData['query']>,
   configuration: V0QueryConfiguration<UsageGetActivityResponse, UsageGetActivityError> = {},
-): SWRResponse<UsageGetActivityResponse, V0ResponseError<UsageGetActivityError>> {
+) {
   return useV0Query<
     UsageGetActivityResponse,
     UsageGetActivityError,
@@ -894,7 +894,7 @@ export function useUsageSummary(
   url: V0Url,
   params?: NonNullable<UsageGetSummaryData['query']>,
   configuration: V0QueryConfiguration<UsageGetSummaryResponse, UsageGetSummaryError> = {},
-): SWRResponse<UsageGetSummaryResponse, V0ResponseError<UsageGetSummaryError>> {
+) {
   return useV0Query<
     UsageGetSummaryResponse,
     UsageGetSummaryError,
@@ -913,7 +913,7 @@ export function useUsageEvents(
   url: V0Url,
   params?: NonNullable<UsageListEventsData['query']>,
   configuration: V0QueryConfiguration<UsageListEventsResponse, UsageListEventsError> = {},
-): SWRResponse<UsageListEventsResponse, V0ResponseError<UsageListEventsError>> {
+) {
   return useV0Query<
     UsageListEventsResponse,
     UsageListEventsError,
@@ -925,7 +925,7 @@ export function useUsageEventsInfinite(
   url: V0Url,
   params?: Omit<NonNullable<UsageListEventsData['query']>, 'cursor'>,
   configuration: V0InfiniteConfiguration<UsageListEventsResponse, UsageListEventsError> = {},
-): SWRInfiniteResponse<UsageListEventsResponse, V0ResponseError<UsageListEventsError>> {
+) {
   return useV0CursorQuery(
     usageEventsOperation,
     url,
@@ -950,7 +950,7 @@ export function useCreateWebhook(
     WebhooksCreateError,
     WebhooksCreateData['body']
   > = {},
-): SWRMutationResponse<WebhooksCreateResponse, WebhooksCreateError> {
+) {
   return useV0Mutation(createWebhookOperation, url, configuration)
 }
 
@@ -963,7 +963,7 @@ const deleteWebhookOperation: V0Operation<WebhooksDeleteResponse> = {
 export function useDeleteWebhook(
   url: string,
   configuration: V0MutationConfiguration<WebhooksDeleteResponse, WebhooksDeleteError, never> = {},
-): SWRMutationResponse<WebhooksDeleteResponse, WebhooksDeleteError> {
+) {
   return useV0Mutation(deleteWebhookOperation, url, configuration)
 }
 
@@ -977,7 +977,7 @@ const webhookOperation: V0Operation<WebhooksGetResponse> = {
 export function useWebhook(
   url: V0Url,
   configuration: V0QueryConfiguration<WebhooksGetResponse, WebhooksGetError> = {},
-): SWRResponse<WebhooksGetResponse, V0ResponseError<WebhooksGetError>> {
+) {
   return useV0Query<WebhooksGetResponse, WebhooksGetError, undefined>(
     webhookOperation,
     url,
@@ -995,7 +995,7 @@ const webhooksOperation: V0Operation<WebhooksListResponse> = {
 export function useWebhooks(
   url: V0Url,
   configuration: V0QueryConfiguration<WebhooksListResponse, WebhooksListError> = {},
-): SWRResponse<WebhooksListResponse, V0ResponseError<WebhooksListError>> {
+) {
   return useV0Query<WebhooksListResponse, WebhooksListError, undefined>(
     webhooksOperation,
     url,
@@ -1019,6 +1019,6 @@ export function useUpdateWebhook(
     WebhooksUpdateError,
     WebhooksUpdateData['body']
   > = {},
-): SWRMutationResponse<WebhooksUpdateResponse, WebhooksUpdateError> {
+) {
   return useV0Mutation(updateWebhookOperation, url, configuration)
 }
