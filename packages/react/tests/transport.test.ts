@@ -236,7 +236,9 @@ describe('V0Transport', () => {
       message({
         id: 'user_file',
         role: 'user',
-        attachments: [{ url: 'https://example.com/a.png', name: 'a.png', contentType: 'image/png' }],
+        attachments: [
+          { url: 'https://example.com/a.png', name: 'a.png', contentType: 'image/png' },
+        ],
       }),
     )
     const calls: Array<{ url: string; body: unknown }> = []
@@ -246,7 +248,9 @@ describe('V0Transport', () => {
         fetch: async (input) => {
           const request = input instanceof Request ? input : new Request(input)
           calls.push({ url: request.url, body: await request.clone().json() })
-          return v0SseResponse([], { ...streamSnapshots(message({ id: 'assistant_1', role: 'assistant' })).final })
+          return v0SseResponse([], {
+            ...streamSnapshots(message({ id: 'assistant_1', role: 'assistant' })).final,
+          })
         },
       },
     })

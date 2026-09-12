@@ -1,4 +1,4 @@
-# v0 SDK 
+# v0 SDK
 
 TypeScript SDK for the v0 API.
 

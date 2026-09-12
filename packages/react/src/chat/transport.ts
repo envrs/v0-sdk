@@ -80,10 +80,8 @@ export class V0Transport implements ChatTransport<V0UIMessage> {
       .filter((part): part is Extract<typeof part, { type: 'file' }> => part.type === 'file')
       .map((part) => ({ url: part.url }))
     const extraBody = isObject(options.body) ? options.body : {}
-    const inlineAttachments = Array.isArray(
-      (extraBody as { attachments?: unknown }).attachments,
-    )
-      ? ((extraBody as { attachments: Array<{ name?: string; content: string }> }).attachments)
+    const inlineAttachments = Array.isArray((extraBody as { attachments?: unknown }).attachments)
+      ? (extraBody as { attachments: Array<{ name?: string; content: string }> }).attachments
       : []
     const attachments = [...inlineAttachments, ...urlAttachments]
     const controller = new AbortController()

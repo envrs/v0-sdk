@@ -1,7 +1,10 @@
 'use client'
 
 import type { ReactNode } from 'react'
-import { PromptInputActionAddAttachments, PromptInputActionMenuItem } from '@/components/ai-elements/prompt-input'
+import {
+  PromptInputActionAddAttachments,
+  PromptInputActionMenuItem,
+} from '@/components/ai-elements/prompt-input'
 import {
   PromptInput,
   PromptInputActionMenu,
@@ -89,10 +92,7 @@ export function PromptBox({
         <PromptInputTools>
           {attachmentMenu ?? (
             <PromptInputActionMenu>
-              <PromptInputActionMenuTrigger
-                aria-label="Add attachment"
-                disabled={isSubmitting}
-              >
+              <PromptInputActionMenuTrigger aria-label="Add attachment" disabled={isSubmitting}>
                 <PlusIcon className="size-4" />
               </PromptInputActionMenuTrigger>
               <PromptInputActionMenuContent>
