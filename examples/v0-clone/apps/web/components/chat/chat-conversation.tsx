@@ -1,6 +1,7 @@
 'use client'
 
 import { useChat } from '@ai-sdk/react'
+import type { FileUIPart } from 'ai'
 import {
   shouldResumeV0Chat,
   toV0UIMessage,
@@ -111,12 +112,12 @@ export function ChatConversation({
     }
   }
 
-  const submitMessage = async (message: string) => {
+  const submitMessage = async (text: string, files: FileUIPart[] = []) => {
     setActionError(null)
     clearError()
 
     await sendMessage(
-      { text: message },
+      { text, files },
       {
         body: {
           modelConfiguration: {
