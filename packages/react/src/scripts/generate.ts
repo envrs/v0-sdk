@@ -265,7 +265,7 @@ function renderQuery(operation: Operation): string {
 }
 
 function renderInfinite(operation: Operation): string {
-  const { typePrefix, publicName } = operation
+  const { typePrefix, _publicName } = operation
   const publicNameInfinite = `${operation.publicName}Infinite`
   const responseType = `${typePrefix}Response`
   const errorType = `${typePrefix}Error`
