@@ -7,9 +7,11 @@ import {
   toV0UIMessages,
   V0Transport,
   extractAgentActions,
+  getPendingV0Task,
   type MessagesListResponse,
   type V0UIMessage,
 } from '@v0-sdk/react'
+import { TaskResolution } from './components/chat/TaskResolution'
 import { useMessages, useStopMessage } from '@v0-sdk/react/swr'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
@@ -80,12 +82,30 @@ function ChatRuntime({
   )
   const generating = chat.status === 'submitted' || chat.status === 'streaming'
 
+  const handleResolve = async (task: unknown) => {
+    if (!activeChatId || !activeAssistant) return
+    await fetch(`/api/v0/chats/${activeChatId}/messages/${activeAssistant.id}/resolve`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ task }),
+    })
+  }
+
+  const handleRejectPermission = async () => {
+    if (!activeChatId || !activeAssistant) return
+    await fetch(`/api/v0/chats/${activeChatId}/messages/${activeAssistant.id}/resolve`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ task: { type: 'confirmed-permissions', permissions: [] } }),
+    })
+  }
+
   return (
     <main className="shell">
       <header>
         <div>
           <p className="eyebrow">@v0-sdk/react + AI SDK</p>
-          <h1>v0 chat</h1>
+          <h1>v0 agent chat</h1>
         </div>
         {initialChatId ? <a href="/">New chat</a> : null}
       </header>
@@ -96,6 +116,7 @@ function ChatRuntime({
         ) : (
           chat.messages.map((message) => {
             const hasAgentActions = extractAgentActions(message).length > 0
+            const task = getPendingV0Task(message)
             return (
               <article className={`message ${message.role}`} key={message.id}>
                 <strong>{message.role}</strong>
@@ -116,6 +137,14 @@ function ChatRuntime({
                     <MessagePart key={`${message.id}:${index}`} part={part} />
                   ))
                 )}
+                {task && !generating && (
+                  <TaskResolution
+                    message={message}
+                    onResolve={handleResolve}
+                    onRejectPermission={handleRejectPermission}
+                  />
+                )}
+
               </article>
             )
           })
@@ -136,7 +165,7 @@ function ChatRuntime({
         <textarea
           aria-label="Message"
           onChange={(event) => setInput(event.target.value)}
-          placeholder="Build a project dashboard…"
+          placeholder="Ask v0 to build anything..."
           rows={3}
           value={input}
         />
