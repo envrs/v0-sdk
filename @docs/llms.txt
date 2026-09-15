@@ -1,0 +1,45 @@
+# v0
+
+v0 is an AI-powered development platform for building production-ready applications from natural-language prompts.
+
+This file helps AI agents understand and use this documentation site.
+
+## Documentation Surfaces
+
+- [Docs](https://v0.app/docs): Documentation section: docs
+- [Full documentation context](https://v0.app/docs/llms.txt): All configured documentation as Markdown
+- [Semantic documentation sitemap](https://v0.app/docs/sitemap.md): High-level documentation map for agent navigation
+- Page-level Markdown: append .md or .mdx to a documentation URL
+
+## Product Context
+
+- Category: Developer tools
+- Audience: Developers, Designers, Product teams
+Common use cases:
+
+- Build full-stack web applications
+- Generate and iterate on user interfaces
+- Integrate APIs, databases, and deployment workflows
+
+## API and Auth
+
+- [Authentication documentation](https://v0.app/docs/api/v1/quickstart)
+- [Rate limits](https://v0.app/docs/api/v1/reference/rate-limits/find)
+
+## Important Links
+
+- [Docs](https://v0.app/docs)
+- [API](https://v0.app/docs/api)
+- [v0](https://v0.app): Build applications with v0
+
+## Versions
+
+- [v2 (Current) current](https://v0.app/docs/api/v2)
+- [v1](https://v0.app/docs/api/v1)
+
+## Agent Instructions
+
+- Use /docs/sitemap.md to identify the most relevant documentation pages before answering broad questions.
+- Use /docs/llms.txt when you need the complete documentation corpus as Markdown context.
+- Fetch individual documentation pages with a .md or .mdx extension for focused page-level context.
+- Do not assume API, authentication, OpenAPI, or MCP support unless it is listed in this file.

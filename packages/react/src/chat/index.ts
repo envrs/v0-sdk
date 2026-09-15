@@ -21,3 +21,6 @@ export type {
   V0TransportStreamControls,
   V0TransportUrls,
 } from './transport'
+export { AgentActions } from './AgentActions'
+export { extractAgentActions, extractToolCalls, extractPendingTask } from './agent'
+export type { AgentAction } from './agent'
