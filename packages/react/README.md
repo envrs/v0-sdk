@@ -136,6 +136,33 @@ const transport = new V0Transport({
 })
 ```
 
+## `V0Chat` and message presentation
+
+`V0Chat` is a thin, route-agnostic presentation layer over the AI SDK `useChat` hook and `V0Transport`. Pass proxy route URLs or an existing transport; keep v0 credentials in the server-side proxy routes.
+
+```tsx
+import { V0Chat, type V0TransportOptions } from '@v0-sdk/react'
+
+const transport: V0TransportOptions = {
+  urls: {
+    create: '/api/v0/chats/stream',
+    send: (chatId) => `/api/v0/chats/${chatId}/messages/stream`,
+    resume: (chatId) => `/api/v0/chats/${chatId}/resume`,
+  },
+}
+
+export function Chat() {
+  return (
+    <V0Chat
+      transport={transport}
+      renderPendingTask={(task) => <pre>{JSON.stringify(task, null, 2)}</pre>}
+    />
+  )
+}
+```
+
+`V0Stream` is presentation-only: it renders text, reasoning, supported file/image parts, and v0 data parts. It does not parse streams or issue requests. Supply `renderMessage`, `renderPendingTask`, `renderData`, or `renderFile` to compose application-specific UI.
+
 ## Pending tasks
 
 Use `getPendingV0Task` to find the latest questions, plan, integration request,

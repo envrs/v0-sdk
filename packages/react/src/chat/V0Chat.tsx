@@ -5,6 +5,7 @@ import type { ChatStatus } from 'ai'
 import { useMemo, useState, type ReactNode } from 'react'
 import { V0Stream } from './V0Stream'
 import { shouldResumeV0Chat } from './composition'
+import { getPendingV0Task, type V0PendingTask } from './tasks'
 import type { V0UIMessage } from './messages'
 import { V0Transport, type V0TransportOptions } from './transport'
 
@@ -13,7 +14,9 @@ export interface V0ChatProps {
   initialMessages?: V0UIMessage[]
   onChatCreated?: V0TransportOptions['onChatCreated']
   renderMessage?: (message: V0UIMessage) => ReactNode
+  renderPendingTask?: (task: V0PendingTask, message: V0UIMessage) => ReactNode
   renderStatus?: (status: ChatStatus) => ReactNode
+  renderError?: (error: Error) => ReactNode
   placeholder?: string
   disabled?: boolean
   className?: string
@@ -25,7 +28,9 @@ export function V0Chat({
   initialMessages = [],
   onChatCreated,
   renderMessage,
+  renderPendingTask,
   renderStatus,
+  renderError,
   placeholder = 'Ask v0 to build anything...',
   disabled = false,
   className,
@@ -49,13 +54,23 @@ export function V0Chat({
   return (
     <section className={className}>
       <div aria-live="polite">
-        {chat.messages.map((message) => (
-          <div key={message.id}>
-            {renderMessage ? renderMessage(message) : <V0Stream message={message} />}
-          </div>
-        ))}
+        {chat.messages.map((message) => {
+          const pendingTask = getPendingV0Task(message)
+          return (
+            <div key={message.id}>
+              {renderMessage ? renderMessage(message) : <V0Stream message={message} />}
+              {pendingTask && renderPendingTask ? renderPendingTask(pendingTask, message) : null}
+            </div>
+          )
+        })}
       </div>
-      {chat.error ? <p role="alert">{chat.error.message}</p> : null}
+      {chat.error ? (
+        renderError ? (
+          renderError(chat.error)
+        ) : (
+          <p role="alert">{chat.error.message}</p>
+        )
+      ) : null}
       {renderStatus ? renderStatus(chat.status) : <output aria-live="polite">{chat.status}</output>}
       <form
         onSubmit={(event) => {
@@ -73,8 +88,12 @@ export function V0Chat({
           placeholder={placeholder}
           value={input}
         />
-        <button disabled={!input.trim() || busy} type="submit">Send</button>
-        <button disabled={!busy || disabled} onClick={() => void chat.stop()} type="button">Stop</button>
+        <button disabled={!input.trim() || busy} type="submit">
+          Send
+        </button>
+        <button disabled={!busy || disabled} onClick={() => void chat.stop()} type="button">
+          Stop
+        </button>
       </form>
     </section>
   )
